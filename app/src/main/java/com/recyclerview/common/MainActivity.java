@@ -6,10 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.recyclerview.recyclerview.extension.MultiTypeAdapter;
-import com.recyclerview.recyclerview.extension.StickyAdapter;
-import com.recyclerview.recyclerview.extension.manager.StickyHeadersLinearLayoutManager;
-import com.recyclerview.recyclerview.extension.tools.SimpleViewBound;
 
 import java.util.Arrays;
 
@@ -30,17 +26,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
-        MultiTypeAdapter adapter = new StickyAdapter();
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-        recyclerView.setLayoutManager(new StickyHeadersLinearLayoutManager<StickyAdapter>(this));
-        adapter.register(String.class,new SimpleViewBound<String>(R.layout.view_bound_item, com.recyclerview.common.BR.data)
-                .addOnClickListener((view, item, i) -> Toast.makeText(view.getContext(), "测试", Toast.LENGTH_SHORT).show()));
-
-
-        recyclerView.setAdapter(adapter);
-        adapter.display(Arrays.asList("1", "2", "3","4","5","11", "12", "13","14","15","21", "22", "23","24","25"));
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        setContentView(R.layout.activity_main);
+//        MultiTypeAdapter adapter = new StickyAdapter();
+//        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+//
+//        recyclerView.setLayoutManager(new StickyHeadersLinearLayoutManager<StickyAdapter>(this));
+//        adapter.register(String.class,new SimpleViewBound<String>(R.layout.view_bound_item, com.recyclerview.common.BR.data)
+//                .addOnClickListener((view, item, i) -> Toast.makeText(view.getContext(), "测试", Toast.LENGTH_SHORT).show()));
+//
+//
+//        recyclerView.setAdapter(adapter);
+//        adapter.display(Arrays.asList("1", "2", "3","4","5","11", "12", "13","14","15","21", "22", "23","24","25"));
     }
 }
