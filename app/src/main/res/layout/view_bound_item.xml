@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        tools:context="com.prayxiang.common.MainActivity">
+        tools:context="com.recyclerview.common.MainActivity">
 
         <TextView
             android:layout_width="wrap_content"
