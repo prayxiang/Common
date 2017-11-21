@@ -7,5 +7,6 @@ package com.prayxiang.base.vo;
 public enum Status {
     SUCCESS,
     ERROR,
-    LOADING
+    LOADING,
+    EMPTY
 }
