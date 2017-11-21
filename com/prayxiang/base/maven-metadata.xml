@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>com.prayxiang</groupId>
-  <artifactId>recyclerview-extension</artifactId>
+  <artifactId>base</artifactId>
   <versioning>
     <release>1.0.0</release>
     <versions>
       <version>1.0.0</version>
     </versions>
-    <lastUpdated>20171121092012</lastUpdated>
+    <lastUpdated>20171121092014</lastUpdated>
   </versioning>
 </metadata>
