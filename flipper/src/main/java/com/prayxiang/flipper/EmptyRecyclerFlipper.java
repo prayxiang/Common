@@ -59,12 +59,7 @@ public class EmptyRecyclerFlipper extends Flipper {
         FlipperAnimator flipperAnimator = getFlipperAnimator();
         if(itemAnimator != null && flipperAnimator != null) {
             mRecyclerView.setItemAnimator(null);
-            mRecyclerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mRecyclerView.setItemAnimator(itemAnimator);
-                }
-            }, flipperAnimator.getFlipDuration());
+            mRecyclerView.postDelayed(() -> mRecyclerView.setItemAnimator(itemAnimator), flipperAnimator.getFlipDuration());
         }
     }
 

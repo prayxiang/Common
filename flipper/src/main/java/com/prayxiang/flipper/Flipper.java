@@ -26,6 +26,9 @@ public class Flipper {
     }
 
     protected void replaceInternal(View outView, View inView, boolean animate) {
+        if(outView==inView){
+            return;
+        }
         if (animate && mFlipperAnimator != null && ViewCompat.isLaidOut(outView)) {
             mFlipperAnimator.animateFlip(outView, inView);
         } else {

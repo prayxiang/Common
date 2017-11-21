@@ -23,7 +23,7 @@ allprojects {
         }
 
         maven {
-            url "https://github.com/prayxiang/Common/tree/master/"
+            url "https://github.com/prayxiang/Common/raw/master/"
         }
 
     }
