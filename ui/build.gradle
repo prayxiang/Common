@@ -3,7 +3,7 @@ apply plugin: 'maven'
 
 ext {
     PUBLISH_GROUP_ID = "${PUBLISH_GROUP_ID}"
-    PUBLISH_ARTIFACT_ID = "flipper"
+    PUBLISH_ARTIFACT_ID = "ui"
     PUBLISH_VERSION = "${APP_VERSION_NAME}"
 }
 
@@ -18,19 +18,19 @@ uploadArchives {
         }
     }
 }
+
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
 
-    dataBinding {
-        enabled = true
-    }
+
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -41,16 +41,11 @@ android {
         }
     }
 
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
-    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
-    provided'com.prayxiang:base:1.0.0'
-
 }

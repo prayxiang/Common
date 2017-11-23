@@ -1,1 +1,1 @@
-include ':app', ':RecyclerViewExtension', ':Router', ':flipper', ':base'
+include ':app', ':RecyclerViewExtension', ':Router', ':flipper', ':base', ':ui'
