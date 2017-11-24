@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Ui</string>
+    <string name="expanded">Expanded</string>
+
+    <!-- The label used on a button when a view is in an collapsed state. Clicking on the icon
+    expanded the view. -->
+    <string name="collapsed">Collapsed</string>
+    <string name="feedback_rating_confirmation">您的评价：%1$d/%2$d 星</string>
+    <string name="feedback_rating_value">%1$d 星</string>
 </resources>
