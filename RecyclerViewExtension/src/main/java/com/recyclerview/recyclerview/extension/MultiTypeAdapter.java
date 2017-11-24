@@ -26,11 +26,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.recyclerview.listview.extension.tools.DefaultCategory;
 import com.recyclerview.recyclerview.extension.tools.OnItemClickListener;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,21 +41,20 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
 
     static final Object DB_PAYLOAD = new Object();
-    protected List<Object> mItems = Collections.emptyList();
+
     @Nullable
     private RecyclerView mRecyclerView;
     private MultiTypePool mPool = new MultiTypePool();
-    private TypeStrategy mCategory = new TypeStrategy() {
-
-        @Override
-        public int getItemType(Object item) {
-            return item.getClass().hashCode();
-        }
-    };
+    private TypeStrategy mCategory = new DefaultCategory();
 
     public MultiTypeAdapter() {
 
     }
+
+    public MultiTypeAdapter(TypeStrategy category) {
+        mCategory = category;
+    }
+
 
     /**
      * This is used to block items from updating themselves. RecyclerView wants to know when an
@@ -127,12 +128,17 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     @Override
     public int getItemViewType(int position) {
-        return mCategory.getItemType(getItem(position));
+        return mCategory.getItemViewType(getItem(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mCategory.getItemCount();
     }
 
 
     public MultiTypeAdapter(Object... items) {
-        mItems = Arrays.asList(items);
+        mCategory.display(Arrays.asList(items));
     }
 
     public void register(Class t, ViewBinder binder) {
@@ -153,57 +159,28 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
         return paramType.getActualTypeArguments();
     }
 
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
     public Object getItem(int position) {
-        return mItems.get(position);
+        return mCategory.getItem(position);
     }
 
 
-    public void addItem(Object item) {
-        mItems.add(item);
-        notifyItemInserted(mItems.size() - 1);
-    }
-
-
-    public void addItem(int position, Object item) {
-        mItems.add(position, item);
-        notifyItemInserted(position);
-    }
-
-    public void addItem(int position, List item) {
-        int from = mItems.size() - 1;
-        if (item == null) {
-            return;
-        }
-        if (from < 0) {
-            from = 0;
-        }
-        mItems.add(position, item);
-        notifyItemRangeInserted(from, item.size());
-    }
-
-    public List getItems() {
-        return mItems;
-    }
-
-    public void setItems(List items) {
+    public void setItems(Collection<?> items) {
         if (items == null) {
             items = Collections.emptyList();
         }
-        this.mItems = items;
+        mCategory.display(items);
     }
 
-    public void display(List items) {
-        setItems(items);
-        notifyDataSetChanged();
+    public void display(Collection<?> items) {
+        mCategory.display(items);
+    }
+
+    public void insert(Collection<?> items) {
+        mCategory.insert(items);
     }
 
     public void removed(int position) {
-        mItems.remove(position);
+        mCategory.remove(position);
     }
 
     private OnItemClickListener itemClickListener;
