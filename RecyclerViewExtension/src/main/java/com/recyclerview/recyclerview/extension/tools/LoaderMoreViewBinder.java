@@ -23,7 +23,7 @@ public class LoaderMoreViewBinder extends ItemViewBinder<LoaderMore, ItemViewHol
     @Override
     public ItemViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
 
-        ItemViewHolder holder = new ItemViewHolder(inflater.inflate(R.layout.multi_tpe_view_binder_load_more, parent, false));
+        ItemViewHolder holder = new ItemViewHolder(inflater.inflate(R.layout.multi_type_view_binder_load_more, parent, false));
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
