@@ -48,6 +48,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
     private TypeStrategy mStrategy = new DefaultCategory();
 
     public MultiTypeAdapter() {
+        mStrategy.attachAdapter(this);
     }
 
     public MultiTypeAdapter(TypeStrategy strategy) {
@@ -56,7 +57,11 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
     }
 
     public void setStrategy(TypeStrategy strategy) {
-        this.mStrategy = strategy;
+
+        if(mStrategy!=strategy){
+            this.mStrategy = strategy;
+            mStrategy.attachAdapter(this);
+        }
     }
 
     /**
