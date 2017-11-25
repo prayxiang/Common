@@ -137,6 +137,19 @@ public class MultiTypeAdapter extends BaseAdapter {
         return paramType.getActualTypeArguments();
     }
 
+    public MultiTypeAdapter addViewBinder(int type, ViewBinder binder) {
+        mPool.register(type, binder);
+        return this;
+    }
+    public MultiTypeAdapter addViewBinder(Class clz, ViewBinder binder) {
+            mPool.register(clz.hashCode(), binder);
+        return this;
+    }
+    public MultiTypeAdapter addViewBinder(ViewBinder binder) {
+        Type types[] = getGenericParametersType(binder.getClass());
+        mPool.register(types[0].hashCode(), binder);
+        return this;
+    }
 
     public Object getItem(int position) {
         return mItems.get(position);
