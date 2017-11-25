@@ -14,23 +14,31 @@ import com.recyclerview.recyclerview.extension.tools.LoaderMoreViewBinder;
 public class BaseAdapter extends MultiTypeAdapter {
 
     private LoadListener loadListener;
-    private SimpleCategory simpleCategory;
+    private SimpleCategory simpleCategory = new SimpleCategory() {
+        @Override
+        public int getItemViewType(Object item) {
+            return getItemViewTypeByObject(item);
+        }
+    };
+
 
     public void setLoadListener(LoadListener loadListener) {
         this.loadListener = loadListener;
     }
 
     public BaseAdapter() {
-        this(new SimpleCategory());
+        setStrategy(simpleCategory);
     }
 
-    public BaseAdapter(SimpleCategory category) {
-        simpleCategory = category;
+    public int getItemViewTypeByObject(Object item) {
+        if (item instanceof Cell) {
+            return ((Cell) item).getItemViewType();
+        }
+        return item.getClass().hashCode();
     }
-
 
     public interface LoadListener {
-        void load();
+        void load(int offset);
     }
 
 
@@ -44,7 +52,7 @@ public class BaseAdapter extends MultiTypeAdapter {
                     LoaderMore loaderMore = simpleCategory.getLoaderMore();
                     if (loaderMore.loadMoreStatus != LoaderMore.STATUS_END && loaderMore.loadMoreStatus != LoaderMore.STATUS_LOADING) {
                         loaderMore.setLoadMoreStatus(LoaderMore.STATUS_LOADING);
-                        loadListener.load();
+                        loadListener.load(loaderMore.currentPage);
                     }
 
                 }
@@ -55,5 +63,9 @@ public class BaseAdapter extends MultiTypeAdapter {
     public void addHead(Object o) {
         simpleCategory.addHead(o);
     }
-    
+
+    public void setLimit(int limit) {
+        simpleCategory.setLimit(limit);
+    }
+
 }

@@ -45,16 +45,18 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
     @Nullable
     private RecyclerView mRecyclerView;
     private MultiTypePool mPool = new MultiTypePool();
-    private TypeStrategy mCategory = new DefaultCategory();
+    private TypeStrategy mStrategy = new DefaultCategory();
 
     public MultiTypeAdapter() {
-
     }
 
-    public MultiTypeAdapter(TypeStrategy category) {
-        mCategory = category;
+    public MultiTypeAdapter(TypeStrategy strategy) {
+        mStrategy = strategy;
     }
 
+    public void setStrategy(TypeStrategy strategy) {
+        this.mStrategy = strategy;
+    }
 
     /**
      * This is used to block items from updating themselves. RecyclerView wants to know when an
@@ -128,17 +130,17 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     @Override
     public int getItemViewType(int position) {
-        return mCategory.getItemViewType(getItem(position));
+        return mStrategy.getItemViewType(getItem(position));
     }
 
     @Override
     public int getItemCount() {
-        return mCategory.getItemCount();
+        return mStrategy.getItemCount();
     }
 
 
     public MultiTypeAdapter(Object... items) {
-        mCategory.display(Arrays.asList(items));
+        mStrategy.display(Arrays.asList(items));
     }
 
     public void register(Class t, ViewBinder binder) {
@@ -160,7 +162,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
     }
 
     public Object getItem(int position) {
-        return mCategory.getItem(position);
+        return mStrategy.getItem(position);
     }
 
 
@@ -168,19 +170,19 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
         if (items == null) {
             items = Collections.emptyList();
         }
-        mCategory.display(items);
+        mStrategy.display(items);
     }
 
     public void display(Collection<?> items) {
-        mCategory.display(items);
+        mStrategy.display(items);
     }
 
     public void insert(Collection<?> items) {
-        mCategory.insert(items);
+        mStrategy.insert(items);
     }
 
     public void removed(int position) {
-        mCategory.remove(position);
+        mStrategy.remove(position);
     }
 
     private OnItemClickListener itemClickListener;

@@ -14,36 +14,39 @@ class DefaultFlipperAnimator extends FlipperAnimator {
             inView.animate().cancel();
         }
 
-        outView.setVisibility(View.VISIBLE);
-        outView.setAlpha(1f);
-        outView.animate()
-               .alpha(0f)
-               .setDuration(getFlipDuration())
-               .setListener(new AnimatorListenerAdapter() {
-                   @Override
-                   public void onAnimationEnd(Animator animation) {
-                       outView.setVisibility(View.GONE);
-                       outView.setAlpha(1f);
-                   }
-               })
-               .withLayer()
-               .start();
+        if (outView != null) {
+            outView.setVisibility(View.VISIBLE);
+            outView.setAlpha(1f);
+            outView.animate()
+                    .alpha(0f)
+                    .setDuration(getFlipDuration())
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            outView.setVisibility(View.GONE);
+                            outView.setAlpha(1f);
+                        }
+                    })
+                    .withLayer()
+                    .start();
+        }
 
-        inView.setVisibility(View.VISIBLE);
-        inView.setAlpha(0f);
-        inView.animate()
-              .alpha(1f)
-              .setDuration(getFlipDuration())
-              .setListener(new AnimatorListenerAdapter() {
-                  @Override
-                  public void onAnimationEnd(Animator animation) {
-                      inView.setAlpha(1f);
-                      mAnimating = false;
-                  }
-              })
-              .withLayer()
-              .start();
-
+        if (inView != null) {
+            inView.setVisibility(View.VISIBLE);
+            inView.setAlpha(0f);
+            inView.animate()
+                    .alpha(1f)
+                    .setDuration(getFlipDuration())
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            inView.setAlpha(1f);
+                            mAnimating = false;
+                        }
+                    })
+                    .withLayer()
+                    .start();
+        }
         mAnimating = true;
     }
 

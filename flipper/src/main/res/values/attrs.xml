@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatusLayout">
+        <attr name="errorLayout" format="integer" />
+        <attr name="emptyLayout" format="integer" />
+        <attr name="loadingLayout" format="integer" />
+        <attr name="needDefault" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -1,5 +1,6 @@
 package com.prayxiang.flipper;
 
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import com.prayxiang.base.vo.Status;
@@ -18,6 +19,7 @@ public abstract class DefaultFlipper extends Flipper {
     private View contenView;
     private Status mStatus;
 
+    private FlipperAnimator mFlipperAnimator = new DefaultFlipperAnimator();
     private void checkStatusInternal(){
         if(mCurrentView==null){
             mCurrentView = contenView;
@@ -44,5 +46,29 @@ public abstract class DefaultFlipper extends Flipper {
         }
         this.mStatus = mStatus;
         checkStatusInternal();
+    }
+
+    public void replace(View outView, View inView) {
+        replaceInternal(outView, inView, true);
+    }
+
+    public void replaceNoAnimation(View outView, View inView) {
+        replaceInternal(outView, inView, false);
+    }
+
+    protected void replaceInternal(View outView, View inView, boolean animate) {
+        if(outView==inView){
+            return;
+        }
+        if (animate && mFlipperAnimator != null && ViewCompat.isLaidOut(outView)) {
+            mFlipperAnimator.animateFlip(outView, inView);
+        } else {
+            if (mFlipperAnimator != null && mFlipperAnimator.isAnimating()) {
+                outView.animate().cancel();
+                inView.animate().cancel();
+            }
+            outView.setVisibility(View.GONE);
+            inView.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Flipper</string>
+    <string name="flipper_status_string_default_empty">空空如也</string>
+    <string name="flipper_status_string_default_loading">玩命加载中</string>
+    <string name="flipper_status_string_default_error">加载出错</string>
+
 </resources>
