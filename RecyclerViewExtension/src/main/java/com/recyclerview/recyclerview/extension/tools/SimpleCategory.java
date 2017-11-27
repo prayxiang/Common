@@ -45,8 +45,7 @@ public class SimpleCategory extends DefaultCategory {
         int position = mItems.size();
         mItems.add(position, o);
         footOffset++;
-        Log.d("xgf", getDataSize() + "   limit=" + limit + "  showFoot" + isShowFoot());
-        onInserted(position,1);
+        onInserted(position, 1);
     }
 
     public void removeFoot(Object o) {
@@ -78,14 +77,18 @@ public class SimpleCategory extends DefaultCategory {
     public void display(Collection<?> collections) {
         loaderMore.reset();
         clear();
-        mItems.addAll(collections);
+        mItems.addAll(headOffset, collections);
         Log.d("xgf", getDataSize() + "   limit=" + limit + "  showFoot" + isShowFoot());
         if (getDataSize() > limit) {
             if (!isShowFoot()) {
-                addFoot(loaderMore);
+                int position = mItems.size();
+                mItems.add(position, loaderMore);
+                footOffset++;
             }
         } else if (isShowFoot()) {
-            removeFoot(loaderMore);
+            mItems.remove(loaderMore);
+            footOffset--;
+            adapter.notifyDataSetChanged();
         }
         adapter.notifyDataSetChanged();
 
