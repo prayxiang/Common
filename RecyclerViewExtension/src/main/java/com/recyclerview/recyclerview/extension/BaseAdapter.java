@@ -41,14 +41,14 @@ public class BaseAdapter extends MultiTypeAdapter {
         void load(int offset);
     }
 
-    public static MultiTypeAdapter create(){
+    public static MultiTypeAdapter create() {
         return new BaseAdapter();
     }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
-        register(new LoaderMoreViewBinder(new LoadMoreScrollListener() {
+        register(LoaderMore.class, new LoaderMoreViewBinder(new LoadMoreScrollListener() {
             @Override
             public void loadMore() {
                 if (loadListener != null) {
