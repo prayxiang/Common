@@ -33,7 +33,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -163,23 +162,26 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
     }
 
 
-    public static MultiTypeAdapter create(){
+    public static MultiTypeAdapter create() {
         return new MultiTypeAdapter();
     }
-    public MultiTypeAdapter addViewBinder(int type,ViewBinder<?,?> viewBinder){
+
+    public MultiTypeAdapter addViewBinder(int type, ViewBinder<?, ?> viewBinder) {
         mPool.register(type, viewBinder);
         return this;
     }
-    public MultiTypeAdapter addViewBinder(Class clz,ViewBinder<?,?> viewBinder){
+
+    public MultiTypeAdapter addViewBinder(Class clz, ViewBinder<?, ?> viewBinder) {
         mPool.register(clz.hashCode(), viewBinder);
         return this;
     }
 
-    public MultiTypeAdapter addViewBinder(ViewBinder<?,?> viewBinder){
+    public MultiTypeAdapter addViewBinder(ViewBinder<?, ?> viewBinder) {
         Type types[] = getGenericParametersType(viewBinder.getClass());
         mPool.register(types[0].hashCode(), viewBinder);
         return this;
     }
+
     public static Type[] getGenericParametersType(Class clz) {
         ParameterizedType paramType = (ParameterizedType) clz.getGenericSuperclass();
         return paramType.getActualTypeArguments();
@@ -192,9 +194,9 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     public void setItems(Collection<?> items) {
         if (items == null) {
-            items = Collections.emptyList();
+            return;
         }
-        mStrategy.display(items);
+        mStrategy.setItems((List<?>) items);
     }
 
     public void display(Collection<?> items) {

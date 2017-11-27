@@ -2,6 +2,7 @@ package com.recyclerview.recyclerview.extension.tools;
 
 import com.recyclerview.recyclerview.extension.TypeStrategy;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,10 +10,10 @@ import java.util.List;
  * Created by prayxiang on 2017/11/24.
  */
 
-public class DefaultCategory extends TypeStrategy {
+public class BaseCategory extends TypeStrategy {
 
-    public DefaultCategory() {
-
+    public BaseCategory() {
+        items = new ArrayList();
     }
 
     public void setItems(List<?> items) {
@@ -32,10 +33,7 @@ public class DefaultCategory extends TypeStrategy {
     @Override
     public void display(Collection<?> collections) {
         clear();
-        if(collections==null){
-            return;
-        }
-        items = (List) collections;
+        items.addAll(collections);
         adapter.notifyDataSetChanged();
     }
 

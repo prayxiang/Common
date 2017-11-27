@@ -1,16 +1,13 @@
 package com.recyclerview.recyclerview.extension.tools;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by prayxiang on 2017/11/24.
  */
 
-public class SimpleCategory extends DefaultCategory {
-    protected List<Object> mItems = new ArrayList<>();
+public class SimpleCategory extends BaseCategory {
     protected int headOffset;
     protected int footOffset;
     public LoaderMore loaderMore = new LoaderMore();
@@ -30,44 +27,44 @@ public class SimpleCategory extends DefaultCategory {
     }
 
     public int getDataSize() {
-        return mItems.size() - headOffset - footOffset;
+        return items.size() - headOffset - footOffset;
     }
 
     public void addHead(Object o) {
-        mItems.add(o);
+        items.add(o);
         headOffset++;
         adapter.notifyDataSetChanged();
     }
 
     public void addFoot(Object o) {
-        int position = mItems.size();
-        mItems.add(position, o);
+        int position = items.size();
+        items.add(position, o);
         footOffset++;
         onInserted(position, 1);
     }
 
     public void removeFoot(Object o) {
-        mItems.remove(o);
+        items.remove(o);
         footOffset--;
         adapter.notifyDataSetChanged();
     }
 
     public void removeHead(Object o) {
-        mItems.remove(o);
+        items.remove(o);
         headOffset--;
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return items.size();
     }
 
 
     @Override
     public void clear() {
-        for (int i = mItems.size() - footOffset - 1; i >= headOffset; i--) {
-            mItems.remove(i);
+        for (int i = items.size() - footOffset - 1; i >= headOffset; i--) {
+            items.remove(i);
         }
     }
 
@@ -75,15 +72,15 @@ public class SimpleCategory extends DefaultCategory {
     public void display(Collection<?> collections) {
         loaderMore.reset();
         clear();
-        mItems.addAll(headOffset, collections);
+        items.addAll(headOffset, collections);
         if (getDataSize() >=limit) {
             if (!isShowFoot()) {
-                int position = mItems.size();
-                mItems.add(position, loaderMore);
+                int position = items.size();
+                items.add(position, loaderMore);
                 footOffset++;
             }
         } else if (isShowFoot()) {
-            mItems.remove(loaderMore);
+            items.remove(loaderMore);
             footOffset--;
             adapter.notifyDataSetChanged();
         }
@@ -100,19 +97,19 @@ public class SimpleCategory extends DefaultCategory {
             loaderMore.setLoadMoreStatus(LoaderMore.STATUS_SUCCESS);
         }
         if (collections != null) {
-            mItems.addAll(mItems.size() - footOffset, collections);
-            adapter.notifyItemRangeInserted(mItems.size() - footOffset, collections.size());
+            items.addAll(items.size() - footOffset, collections);
+            adapter.notifyItemRangeInserted(items.size() - footOffset, collections.size());
         }
 
     }
 
     @SuppressWarnings("unchecked")
     public <T> T getLastItem() {
-        return (T) mItems.get(mItems.size() - 1 - footOffset);
+        return (T) items.get(items.size() - 1 - footOffset);
     }
 
     @Override
     public Object getItem(int position) {
-        return mItems.get(position);
+        return items.get(position);
     }
 }

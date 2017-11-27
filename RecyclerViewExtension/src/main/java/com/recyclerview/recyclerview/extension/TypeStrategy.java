@@ -3,6 +3,7 @@ package com.recyclerview.recyclerview.extension;
 import android.support.v7.util.ListUpdateCallback;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
 public abstract class TypeStrategy implements ListUpdateCallback {
     protected MultiTypeAdapter adapter;
 
+    protected List items = Collections.emptyList();
 
     @Override
     public void onInserted(int position, int count) {
@@ -59,6 +61,10 @@ public abstract class TypeStrategy implements ListUpdateCallback {
     }
 
     public List<?> getItems() {
-        return null;
+        return items;
+    }
+
+    public void setItems(List<?> items) {
+        this.items = items;
     }
 }
