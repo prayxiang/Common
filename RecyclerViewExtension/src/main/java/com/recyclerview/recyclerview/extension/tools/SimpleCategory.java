@@ -1,8 +1,6 @@
 package com.recyclerview.recyclerview.extension.tools;
 
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -78,8 +76,7 @@ public class SimpleCategory extends DefaultCategory {
         loaderMore.reset();
         clear();
         mItems.addAll(headOffset, collections);
-        Log.d("xgf", getDataSize() + "   limit=" + limit + "  showFoot" + isShowFoot());
-        if (getDataSize() > limit) {
+        if (getDataSize() >=limit) {
             if (!isShowFoot()) {
                 int position = mItems.size();
                 mItems.add(position, loaderMore);
