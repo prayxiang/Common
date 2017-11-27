@@ -1,4 +1,4 @@
-package com.recyclerview.listview.extension.tools;
+package com.recyclerview.recyclerview.extension.tools;
 
 import com.recyclerview.recyclerview.extension.TypeStrategy;
 
@@ -19,8 +19,8 @@ public class DefaultCategory extends TypeStrategy {
     }
 
     @Override
-    public int getItemViewType(Object item) {
-        return item.getClass().hashCode();
+    public int getItemViewType(int position) {
+        return mItems.getClass().hashCode();
     }
 
     @Override

@@ -2,10 +2,10 @@ package com.recyclerview.recyclerview.extension;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.recyclerview.listview.extension.tools.SimpleCategory;
 import com.recyclerview.recyclerview.extension.tools.LoadMoreScrollListener;
 import com.recyclerview.recyclerview.extension.tools.LoaderMore;
 import com.recyclerview.recyclerview.extension.tools.LoaderMoreViewBinder;
+import com.recyclerview.recyclerview.extension.tools.SimpleCategory;
 
 /**
  * Created by prayxiang on 2017/11/24.
@@ -14,20 +14,25 @@ import com.recyclerview.recyclerview.extension.tools.LoaderMoreViewBinder;
 public class BaseAdapter extends MultiTypeAdapter {
 
     private LoadListener loadListener;
+
+    protected LoadMoreScrollListener loadMoreScrollListener;
+
     private SimpleCategory simpleCategory = new SimpleCategory() {
         @Override
-        public int getItemViewType(Object item) {
-            return getItemViewTypeByObject(item);
+        public int getItemViewType(int position) {
+            return getItemViewTypeByObject(getItem(position));
         }
     };
 
 
     public void setLoadListener(LoadListener loadListener) {
         this.loadListener = loadListener;
+        loadMoreScrollListener.setLoadListener(loadListener);
     }
 
     public BaseAdapter() {
         setStrategy(simpleCategory);
+        loadMoreScrollListener = new LoadMoreScrollListener(simpleCategory.getLoaderMore());
     }
 
     public int getItemViewTypeByObject(Object item) {
@@ -41,26 +46,37 @@ public class BaseAdapter extends MultiTypeAdapter {
         void load(int offset);
     }
 
+    public LoadMoreScrollListener getLoadMoreScrollListener() {
+        return loadMoreScrollListener;
+    }
+
     public static MultiTypeAdapter create() {
         return new BaseAdapter();
     }
 
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        register(LoaderMore.class, new LoaderMoreViewBinder(new LoadMoreScrollListener() {
-            @Override
-            public void loadMore() {
-                if (loadListener != null) {
-                    LoaderMore loaderMore = simpleCategory.getLoaderMore();
-                    if (loaderMore.loadMoreStatus != LoaderMore.STATUS_END && loaderMore.loadMoreStatus != LoaderMore.STATUS_LOADING) {
-                        loaderMore.setLoadMoreStatus(LoaderMore.STATUS_LOADING);
-                        loadListener.load(loaderMore.currentPage);
-                    }
+    private LoaderMoreViewBinder defaultLoadMoreViewBinder;
 
-                }
-            }
-        }));
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        recyclerView.addOnScrollListener(loadMoreScrollListener);
+        if (defaultLoadMoreViewBinder == null) {
+            LoaderMoreViewBinder binder = new LoaderMoreViewBinder();
+            binder.attachToAdapter(this);
+            register(LoaderMore.class, binder);
+        }
+    }
+
+    public void setDefaultLoadMoreViewBinder(LoaderMoreViewBinder defaultLoadMoreViewBinder) {
+        this.defaultLoadMoreViewBinder = defaultLoadMoreViewBinder;
+        defaultLoadMoreViewBinder.attachToAdapter(this);
+        register(LoaderMore.class, defaultLoadMoreViewBinder);
+    }
+
+    public void setDefaultLoadMoreViewBinder(int type, LoaderMoreViewBinder defaultLoadMoreViewBinder) {
+        this.defaultLoadMoreViewBinder = defaultLoadMoreViewBinder;
+        defaultLoadMoreViewBinder.attachToAdapter(this);
+        register(type, defaultLoadMoreViewBinder);
     }
 
     public void addHead(Object o) {
@@ -71,6 +87,10 @@ public class BaseAdapter extends MultiTypeAdapter {
         simpleCategory.setLimit(limit);
     }
 
+    @Override
+    public Object getItem(int position) {
+        return super.getItem(position);
+    }
 
     public <T> T getLastItem() {
         return simpleCategory.getLastItem();

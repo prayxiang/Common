@@ -1,6 +1,7 @@
-package com.recyclerview.listview.extension.tools;
+package com.recyclerview.recyclerview.extension.tools;
 
-import com.recyclerview.recyclerview.extension.tools.LoaderMore;
+
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,9 +42,11 @@ public class SimpleCategory extends DefaultCategory {
     }
 
     public void addFoot(Object o) {
-        mItems.add(mItems.size(), o);
+        int position = mItems.size();
+        mItems.add(position, o);
         footOffset++;
-        adapter.notifyDataSetChanged();
+        Log.d("xgf", getDataSize() + "   limit=" + limit + "  showFoot" + isShowFoot());
+        onInserted(position,1);
     }
 
     public void removeFoot(Object o) {
@@ -63,11 +66,6 @@ public class SimpleCategory extends DefaultCategory {
         return mItems.size();
     }
 
-    @Override
-    public int getItemViewType(Object item) {
-        return item.getClass().hashCode();
-    }
-
 
     @Override
     public void clear() {
@@ -81,7 +79,7 @@ public class SimpleCategory extends DefaultCategory {
         loaderMore.reset();
         clear();
         mItems.addAll(collections);
-
+        Log.d("xgf", getDataSize() + "   limit=" + limit + "  showFoot" + isShowFoot());
         if (getDataSize() > limit) {
             if (!isShowFoot()) {
                 addFoot(loaderMore);

@@ -26,7 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.recyclerview.listview.extension.tools.DefaultCategory;
+import com.recyclerview.recyclerview.extension.tools.DefaultCategory;
 import com.recyclerview.recyclerview.extension.tools.OnItemClickListener;
 
 import java.lang.reflect.ParameterizedType;
@@ -136,7 +136,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     @Override
     public int getItemViewType(int position) {
-        return mStrategy.getItemViewType(getItem(position));
+        return mStrategy.getItemViewType(position);
     }
 
     @Override

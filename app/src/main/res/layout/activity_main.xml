@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.recyclerview.common.MainActivity">
 
-    <com.recyclerview.common.widget.Circle
-        android:id="@+id/textView"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
-
     <!-- <ImageView
          android:id="@+id/textView"
          android:layout_width="match_parent"
@@ -27,6 +22,6 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+/>
 
 </android.support.constraint.ConstraintLayout>

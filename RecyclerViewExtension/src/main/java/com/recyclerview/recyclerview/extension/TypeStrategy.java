@@ -40,7 +40,7 @@ public abstract class TypeStrategy implements ListUpdateCallback {
 
     public abstract int getItemCount();
 
-    public abstract int getItemViewType(Object item);
+    public abstract int getItemViewType(int position);
 
     public void display(Collection<?> collections) {
 

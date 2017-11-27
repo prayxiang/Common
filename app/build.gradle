@@ -40,7 +40,7 @@ dependencies {
 //    compile 'com.droi.sdk:push:+'
 //
 //    compile 'com.droi.sdk:Core:+'
-//    compile project(':RecyclerViewExtension')
+    compile project(':RecyclerViewExtension')
 //    compile 'prayxiang:RecyclerViewExtension:1.0.0'
 //    compile 'me.tangke.slidemenu:slidemenu:1.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
