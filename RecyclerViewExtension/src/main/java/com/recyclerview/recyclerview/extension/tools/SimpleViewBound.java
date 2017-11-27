@@ -16,6 +16,11 @@ public class SimpleViewBound<T> extends DataBoundViewBinder<T, ViewDataBinding> 
     private int br;
     private OnItemClickListener<T> onClickListener;
 
+    public SimpleViewBound(int layoutId,  int br,android.databinding.DataBindingComponent component) {
+        super(layoutId, component);
+        this.br = br;
+    }
+
     public SimpleViewBound(int layoutId, int br) {
         super(layoutId);
         this.br = br;

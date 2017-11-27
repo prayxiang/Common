@@ -162,6 +162,24 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
         mPool.register(types[0].hashCode(), binder);
     }
 
+
+    public static MultiTypeAdapter create(){
+        return new MultiTypeAdapter();
+    }
+    public MultiTypeAdapter addViewBinder(int type,ViewBinder<?,?> viewBinder){
+        mPool.register(type, viewBinder);
+        return this;
+    }
+    public MultiTypeAdapter addViewBinder(Class clz,ViewBinder<?,?> viewBinder){
+        mPool.register(clz.hashCode(), viewBinder);
+        return this;
+    }
+
+    public MultiTypeAdapter addViewBinder(ViewBinder<?,?> viewBinder){
+        Type types[] = getGenericParametersType(viewBinder.getClass());
+        mPool.register(types[0].hashCode(), viewBinder);
+        return this;
+    }
     public static Type[] getGenericParametersType(Class clz) {
         ParameterizedType paramType = (ParameterizedType) clz.getGenericSuperclass();
         return paramType.getActualTypeArguments();
