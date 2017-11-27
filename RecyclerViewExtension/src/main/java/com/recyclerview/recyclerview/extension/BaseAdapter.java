@@ -86,7 +86,9 @@ public class BaseAdapter extends MultiTypeAdapter {
     public void setLimit(int limit) {
         simpleCategory.setLimit(limit);
     }
-
+    public void loadFail(){
+        simpleCategory.getLoaderMore().setLoadMoreStatus(LoaderMore.STATUS_FAIL);
+    }
     @Override
     public Object getItem(int position) {
         return super.getItem(position);
