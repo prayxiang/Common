@@ -46,9 +46,9 @@ public class DataBoundViewHolder<T extends ViewDataBinding> extends ViewHolder {
      * @return A new ViewHolder that has a reference to the binding class
      */
     public static <T extends ViewDataBinding> DataBoundViewHolder<T> create(ViewGroup parent,
-            @LayoutRes int layoutId) {
+                                                                            @LayoutRes int layoutId, android.databinding.DataBindingComponent component) {
         T binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                layoutId, parent, false);
+                layoutId, parent, false,component);
         return new DataBoundViewHolder<>(binding);
     }
 }

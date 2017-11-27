@@ -108,6 +108,11 @@ public class SimpleCategory extends DefaultCategory {
 
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> T getLastItem() {
+        return (T) mItems.get(mItems.size() - 1 - footOffset);
+    }
+
     @Override
     public Object getItem(int position) {
         return mItems.get(position);

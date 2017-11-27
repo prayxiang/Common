@@ -68,4 +68,9 @@ public class BaseAdapter extends MultiTypeAdapter {
         simpleCategory.setLimit(limit);
     }
 
+
+    public <T> T getLastItem() {
+        return simpleCategory.getLastItem();
+    }
+
 }

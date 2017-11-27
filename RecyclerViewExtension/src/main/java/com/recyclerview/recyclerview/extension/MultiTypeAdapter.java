@@ -58,7 +58,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     public void setStrategy(TypeStrategy strategy) {
 
-        if(mStrategy!=strategy){
+        if (mStrategy != strategy) {
             this.mStrategy = strategy;
             mStrategy.attachAdapter(this);
         }
@@ -199,4 +199,9 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implement
             itemClickListener.onItemClick(view, item, position);
         }
     }
+
+    public List<?> getItems() {
+        return mStrategy.getItems();
+    }
+
 }

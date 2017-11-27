@@ -3,6 +3,7 @@ package com.recyclerview.recyclerview.extension;
 import android.support.v7.util.ListUpdateCallback;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by prayxiang on 2017/10/17.
@@ -55,5 +56,9 @@ public abstract class TypeStrategy implements ListUpdateCallback {
 
     public void clear() {
 
+    }
+
+    public List<?> getItems() {
+        return null;
     }
 }

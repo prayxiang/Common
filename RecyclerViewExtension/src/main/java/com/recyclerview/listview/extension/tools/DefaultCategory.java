@@ -51,4 +51,8 @@ public class DefaultCategory extends TypeStrategy {
     public void clear() {
         mItems.clear();
     }
+
+    public List<?> getData() {
+        return mItems;
+    }
 }
