@@ -27,7 +27,7 @@ public class LoadMoreScrollListener extends RecyclerView.OnScrollListener {
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         if (recyclerView.computeVerticalScrollOffset() != 0 && !recyclerView.canScrollVertically(1) && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
-            if (loaderMore.loadMoreStatus != LoaderMore.STATUS_END && loaderMore.loadMoreStatus != LoaderMore.STATUS_LOADING) {
+            if (loaderMore.loadMoreStatus != LoaderMore.STATUS_END && loaderMore.loadMoreStatus != LoaderMore.STATUS_LOADING&&loaderMore.isActive()) {
                 loaderMore.setLoadMoreStatus(LoaderMore.STATUS_LOADING);
                 if(loadListener!=null){
                     loadListener.load(loaderMore.currentPage);

@@ -19,6 +19,7 @@ public class LoaderMore extends BaseObservable {
     public int loadMoreStatus = STATUS_DEFAULT;
     public boolean loadMoreEndGone = false;
     public int currentPage = 1;
+    private boolean active;
 
 
     public LoaderMore(){
@@ -60,4 +61,11 @@ public class LoaderMore extends BaseObservable {
         }
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

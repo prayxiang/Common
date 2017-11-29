@@ -76,10 +76,12 @@ public class SimpleCategory extends BaseCategory {
         if (getDataSize() >=limit) {
             if (!isShowFoot()) {
                 int position = items.size();
+                loaderMore.setActive(true);
                 items.add(position, loaderMore);
                 footOffset++;
             }
         } else if (isShowFoot()) {
+            loaderMore.setActive(false);
             items.remove(loaderMore);
             footOffset--;
             adapter.notifyDataSetChanged();
