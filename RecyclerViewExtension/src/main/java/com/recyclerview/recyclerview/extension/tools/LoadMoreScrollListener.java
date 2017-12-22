@@ -38,7 +38,7 @@ public class LoadMoreScrollListener extends RecyclerView.OnScrollListener {
     }
 
     public void load(){
-        if(loadListener!=null){
+        if(loaderMore.loadMoreStatus != LoaderMore.STATUS_END && loaderMore.loadMoreStatus != LoaderMore.STATUS_LOADING&&loaderMore.isActive()){
             loadListener.load(loaderMore.currentPage);
         }
     }
